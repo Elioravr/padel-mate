@@ -8,7 +8,7 @@ export type Player = {
 
 export type Court = {
   location: string;
-  players: Players[];
+  players: Player[];
   date: Date;
 };
 
@@ -76,7 +76,7 @@ const courts: Court[] = [
   },
 ];
 
-export async function GET(request: Request) {
+export async function GET() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return NextResponse.json(courts);

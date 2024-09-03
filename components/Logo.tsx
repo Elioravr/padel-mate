@@ -6,18 +6,16 @@ const pacifico = Pacifico({ weight: '400', subsets: ['latin'] });
 
 export type LogoSize = 'small' | 'medium' | 'large';
 
-interface LogoProps {
-  includeLogo?: boolean;
-  includeText?: boolean;
-  size?: LogoSize;
-  animated: boolean;
-}
-
-const Logo: React.FC<LogoProps> = ({
+const Logo = ({
   includeLogo = true,
   includeText = true,
   size = 'small',
   animated = false,
+}: {
+  includeLogo?: boolean;
+  includeText?: boolean;
+  size?: LogoSize;
+  animated?: boolean;
 }) => {
   let logoSize = 35;
 

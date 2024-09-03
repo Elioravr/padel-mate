@@ -1,3 +1,4 @@
+import { Court } from '@app/api/courts/route';
 import Navbar from '@components/Navbar';
 
 export default async function Home() {
@@ -5,7 +6,7 @@ export default async function Home() {
     method: 'GET',
     cache: 'no-store', // Disable caching
   });
-  const courts = await courtesRes.json();
+  const courts: Court[] = await courtesRes.json();
 
   return (
     <main>
