@@ -1,5 +1,6 @@
 import { Court } from '@app/api/courts/route';
 import Image from 'next/image';
+import Link from 'next/link';
 import { formatDate } from '../utils/util';
 
 function CourtItem({ court }: { court: Court }) {
@@ -19,9 +20,11 @@ function CourtItem({ court }: { court: Court }) {
         <div className='flex flex-wrap gap-1'>
           {court.players.map((player, index) => {
             return (
-              <div className='badge badge-neutral' key={index}>
-                {player.firstName} {player.lastName}
-              </div>
+              <Link href={`/users/${player.id}`} key={index}>
+                <div className='badge badge-neutral'>
+                  {player.firstName} {player.lastName}
+                </div>
+              </Link>
             );
           })}
         </div>

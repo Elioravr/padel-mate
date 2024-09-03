@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export type Player = {
+  id: number;
   firstName: string;
   lastName: string;
   level: number;
@@ -13,15 +14,16 @@ export type Court = {
   date: string;
 };
 
-const players: Player[] = [
-  { firstName: 'אליאור', lastName: 'אברמוביץ', level: 7 },
-  { firstName: 'שלומי', lastName: 'אברמוביץ', level: 6 },
-  { firstName: 'רותם', lastName: 'נתן', level: 5 },
-  { firstName: 'אייל', lastName: 'מירון', level: 8 },
-  { firstName: 'עודד', lastName: 'רון', level: 7 },
-  { firstName: 'בן', lastName: 'רבינוביץ', level: 6 },
-  { firstName: 'אייל', lastName: 'הוכמן', level: 5 },
-  { firstName: 'רועי', lastName: 'שפר', level: 7 },
+export const players: Player[] = [
+  { id: 1, firstName: 'אליאור', lastName: 'אברמוביץ', level: 3.25 },
+  { id: 2, firstName: 'שלומי', lastName: 'אברמוביץ', level: 3.25 },
+  { id: 3, firstName: 'רותם', lastName: 'נתן', level: 3.5 },
+  { id: 4, firstName: 'אייל', lastName: 'מירון', level: 3.5 },
+  { id: 5, firstName: 'עודד', lastName: 'רון', level: 3.25 },
+  { id: 6, firstName: 'בן', lastName: 'רבינוביץ', level: 3 },
+  { id: 7, firstName: 'אייל', lastName: 'הוכמן', level: 2 },
+  { id: 8, firstName: 'רועי', lastName: 'שפר', level: 3 },
+  { id: 9, firstName: 'עמית', lastName: 'מור', level: 3 },
 ];
 
 const courts: Court[] = [

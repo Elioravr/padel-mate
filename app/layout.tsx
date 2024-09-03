@@ -1,3 +1,4 @@
+import Navbar from '@components/Navbar';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -72,7 +73,11 @@ export default function RootLayout({
         <meta name='theme-color' content='#1d232a' />
         <link rel='manifest' href='/manifest.json' />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        <div className='pt-16'></div>
+        {children}
+      </body>
     </html>
   );
 }
