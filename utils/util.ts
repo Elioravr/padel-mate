@@ -19,3 +19,12 @@ export function formatDate(dateAsString: string): string {
 
   return `${dayName}, ${day}/${month}/${year}, ${hours}:${minutes}`;
 }
+
+export function getBaseURL() {
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://padel-mate.vercel.app/'
+      : 'http://localhost:3000';
+
+  return apiUrl;
+}

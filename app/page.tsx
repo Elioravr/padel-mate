@@ -1,9 +1,10 @@
 import { Court } from '@app/api/courts/route';
 import CourtItem from '@components/CourtItem';
 import Navbar from '@components/Navbar';
+import { getBaseURL } from '@utils/util';
 
 export default async function Home() {
-  const courtesRes = await fetch(`${process.env.URL}/api/courts`, {
+  const courtesRes = await fetch(`${getBaseURL()}/api/courts`, {
     method: 'GET',
     cache: 'no-store', // Disable caching
   });
