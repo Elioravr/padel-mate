@@ -10,7 +10,7 @@ function CourtItem({ court }: { court: Court }) {
           src='/images/padel-court.jpg'
           width={300}
           height={300}
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: '100%', height: 240 }}
           alt='padel-background'
         />
       </figure>
