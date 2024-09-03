@@ -63,6 +63,10 @@ export default function RootLayout({
           sizes='152x152'
           href='icons/app-logo-1.jpg'
         />
+        <meta
+          name='apple-mobile-web-app-status-bar-style'
+          content='#1d232a'
+        ></meta>
 
         {/* For Android */}
         <meta name='theme-color' content='#1d232a' />
