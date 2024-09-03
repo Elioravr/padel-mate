@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <main>
       <Navbar />
-      <div className='p-2 flex flex-col items-center'>
+      <div className='p-2 flex flex-col items-center pt-16'>
         <h1 className='text-2xl font-bold my-4'>Available Courts</h1>
         <div className='flex justify-center flex-wrap gap-2'>
           {courts.map((court, index) => {
