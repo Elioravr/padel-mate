@@ -23,6 +23,7 @@ model Court {
   id        String      @id @default(uuid())
   location  String
   ownerId   String
+  isPublic  Boolean  @default(false)
   owner     Player   @relation("CourtOwner", fields: [ownerId], references: [id]) // One-to-many relation
   players   Player[] @relation("CourtPlayers") // Many-to-many relation
   date      DateTime

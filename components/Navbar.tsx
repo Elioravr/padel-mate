@@ -1,5 +1,5 @@
+import AddCourtButton from '@app/courts/AddCourtButton';
 import { SignedIn, UserButton } from '@clerk/nextjs';
-import AddCourtButton from '@components/AddCourtButton';
 import Logo from '@components/Logo';
 import Link from 'next/link';
 

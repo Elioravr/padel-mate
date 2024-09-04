@@ -1,5 +1,7 @@
 'use client';
 
+import { Court } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
@@ -18,6 +20,8 @@ const AddCourtButton = () => {
     string | null
   >(null);
   const [isCreatingCourt, setIsCreatingCourt] = useState<boolean>(false);
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string>('');
+  const router = useRouter();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPublic(event.target.checked); // Updates the state based on the checkbox's checked status
@@ -46,9 +50,41 @@ const AddCourtButton = () => {
     setCourtDateTimeErrorMessage(null);
     setLocation('');
     setOtherLocation(DEFAULT_OTHER_LOCATION_VALUE);
+    setSubmitErrorMessage('');
+    setIsCreatingCourt(false);
   };
 
-  const handleSubmit = () => {
+  const createCourt = async () => {
+    const courtData = {
+      date: courtDateTime,
+      isPublic,
+      location:
+        location === DEFAULT_OTHER_LOCATION_VALUE ? otherLocation : location,
+    };
+
+    try {
+      const response = await fetch('/api/courts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: courtData }), // Ensure the data is nested in a 'data' object
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      setIsCreatingCourt(false);
+      setSubmitErrorMessage(`Failed to create court:, ${error}`);
+      console.error('Failed to create court:', error);
+    }
+  };
+
+  const handleSubmit = async () => {
     if (courtDateTime === '') {
       return setCourtDateTimeErrorMessage(
         'Please enter the court date and time'
@@ -56,6 +92,16 @@ const AddCourtButton = () => {
     }
 
     setIsCreatingCourt(true);
+
+    const { court: newCourt }: { court: Court } = await createCourt();
+    router.push(`/courts/${newCourt.id}`);
+    const modalCheckbox = document.getElementById(
+      'add_new_court_modal'
+    ) as HTMLDialogElement | null;
+    if (modalCheckbox) {
+      cleanForm();
+      modalCheckbox.close();
+    }
   };
 
   const icon = (
@@ -90,6 +136,26 @@ const AddCourtButton = () => {
     </svg>
   );
 
+  const alert =
+    submitErrorMessage !== '' ? (
+      <div role='alert' className='alert alert-error flex mt-2'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          className='h-6 w-6 shrink-0 stroke-current'
+          fill='none'
+          viewBox='0 0 24 24'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='2'
+            d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
+          />
+        </svg>
+        <span>{submitErrorMessage}</span>
+      </div>
+    ) : null;
+
   return (
     <div className='ml-3'>
       <button
@@ -107,6 +173,7 @@ const AddCourtButton = () => {
       >
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Add new court</h3>
+          {alert}
           <div className='flex flex-col'>
             <div className='form-control my-4'>
               <div className='label-text text-base font-bold'>Where?</div>
