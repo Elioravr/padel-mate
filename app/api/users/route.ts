@@ -6,7 +6,9 @@ const db = new PrismaClient();
 export async function POST(req: Request) {
   try {
     // Parse the request body
-    const { id, first_name, last_name } = await req.json(); // Extract the fields you need from req.json()
+    const {
+      data: { id, first_name, last_name },
+    } = await req.json(); // Extract the fields you need from req.json()
 
     // Make sure required fields exist
     if (!id) {
