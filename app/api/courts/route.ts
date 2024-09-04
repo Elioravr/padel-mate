@@ -11,9 +11,12 @@ export async function GET() {
       owner: true, // Optionally include the court owner if needed
     },
   });
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return NextResponse.json(allCourts);
+  return NextResponse.json(
+    allCourts.filter((court) => {
+      return court.players.length < 4 && court.isPublic;
+    })
+  );
 }
 
 export async function POST(req: NextRequest) {

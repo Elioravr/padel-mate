@@ -4,15 +4,14 @@ import { Court } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+const DEFAULT_LOCATION_VALUE = 'כפר המכבייה רמת גן (מגרשים)';
 const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
 const OTHER_LOCATION_OPTION_VALUE = 'other...';
 
 const AddCourtButton = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [courtDateTime, setCourtDateTime] = useState<string>('');
-  const [location, setLocation] = useState<string>(
-    'כפר המכבייה רמת גן (מגרשים)'
-  );
+  const [location, setLocation] = useState<string>(DEFAULT_LOCATION_VALUE);
   const [otherLocation, setOtherLocation] = useState<string>(
     DEFAULT_OTHER_LOCATION_VALUE
   );
@@ -48,7 +47,7 @@ const AddCourtButton = () => {
     setIsPublic(false);
     setCourtDateTime('');
     setCourtDateTimeErrorMessage(null);
-    setLocation('');
+    setLocation(DEFAULT_LOCATION_VALUE);
     setOtherLocation(DEFAULT_OTHER_LOCATION_VALUE);
     setSubmitErrorMessage('');
     setIsCreatingCourt(false);
@@ -182,8 +181,8 @@ const AddCourtButton = () => {
                 value={location}
                 onChange={handleLocationChange}
               >
-                <option value='כפר המכבייה רמת גן (מגרשים)'>
-                  כפר המכבייה רמת גן (מגרשים)
+                <option value={DEFAULT_LOCATION_VALUE}>
+                  {DEFAULT_LOCATION_VALUE}
                 </option>
                 <option value='אוניברסיטת תל אביב (מגרשים)'>
                   אוניברסיטת תל אביב (מגרשים)

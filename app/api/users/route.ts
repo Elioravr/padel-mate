@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server';
 
 const db = new PrismaClient();
 
+export async function GET(req: Request) {
+  const allPlayers = await db.player.findMany();
+
+  return NextResponse.json(allPlayers);
+}
+
 export async function POST(req: Request) {
   try {
     // Parse the request body
