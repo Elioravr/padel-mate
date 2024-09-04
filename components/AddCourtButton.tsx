@@ -101,6 +101,7 @@ const AddCourtButton = () => {
                   type='checkbox'
                   className='toggle'
                   checked={isPublic}
+                  autoFocus
                   onChange={handleCheckboxChange}
                 />
               </label>
