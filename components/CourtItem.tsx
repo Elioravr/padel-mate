@@ -1,4 +1,4 @@
-import { Court } from '@app/api/courts/route';
+import { Court } from '@utils/MockData';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '../utils/util';

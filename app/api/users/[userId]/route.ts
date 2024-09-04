@@ -1,4 +1,4 @@
-import { players } from '@app/api/courts/route';
+import { players } from '@utils/MockData';
 import { NextResponse } from 'next/server';
 
 export async function GET(

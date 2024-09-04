@@ -1,5 +1,5 @@
-import { Court } from '@app/api/courts/route';
 import CourtItem from '@components/CourtItem';
+import { Court } from '@utils/MockData';
 import { getBaseURL } from '@utils/util';
 
 export default async function Home() {

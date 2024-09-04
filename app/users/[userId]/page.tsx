@@ -1,4 +1,4 @@
-import { Player } from '@app/api/courts/route';
+import { Player } from '@utils/MockData';
 import { getBaseURL } from '@utils/util';
 import Image from 'next/image';
 
