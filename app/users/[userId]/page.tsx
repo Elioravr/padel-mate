@@ -1,4 +1,4 @@
-import { Player } from '@utils/MockData';
+import { Player } from '@prisma/client';
 import { getBaseURL } from '@utils/util';
 import Image from 'next/image';
 

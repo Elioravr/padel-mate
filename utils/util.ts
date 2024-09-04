@@ -1,4 +1,4 @@
-export function formatDate(dateAsString: string): string {
+export function formatDate(dateAsString: Date): string {
   const date = new Date(dateAsString);
   const daysOfWeek = [
     'Sunday',

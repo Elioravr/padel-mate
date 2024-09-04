@@ -1,4 +1,4 @@
-import { Court } from '@utils/MockData';
+import { Court } from '@utils/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '../utils/util';

@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { players } from '@utils/MockData';
 import { NextResponse } from 'next/server';
 
 const db = new PrismaClient();
@@ -13,7 +12,7 @@ export async function GET(
   const { userId } = params;
 
   // Find user by ID
-  const user = players.find((player) => player.id.toString() === userId);
+  const user = allPlayers.find((player) => player.id.toString() === userId);
 
   if (user) {
     return NextResponse.json(user);
