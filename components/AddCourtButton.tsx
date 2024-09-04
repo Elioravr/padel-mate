@@ -5,6 +5,10 @@ import { useState } from 'react';
 const AddCourtButton = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [courtDateTime, setCourtDateTime] = useState<string>('');
+  const [courtDateTimeErrorMessage, setCourtDateTimeErrorMessage] = useState<
+    string | null
+  >(null);
+  const [isCreatingCourt, setIsCreatingCourt] = useState<boolean>(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPublic(event.target.checked); // Updates the state based on the checkbox's checked status
@@ -12,11 +16,23 @@ const AddCourtButton = () => {
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourtDateTime(event.target.value); // Updates the state with the selected date and time
+    setCourtDateTimeErrorMessage(null);
   };
 
   const cleanForm = () => {
     setIsPublic(false);
     setCourtDateTime('');
+    setCourtDateTimeErrorMessage(null);
+  };
+
+  const handleSubmit = () => {
+    if (courtDateTime === '') {
+      return setCourtDateTimeErrorMessage(
+        'Please enter the court date and time'
+      );
+    }
+
+    setIsCreatingCourt(true);
   };
 
   const icon = (
@@ -62,13 +78,20 @@ const AddCourtButton = () => {
       >
         {icon}
       </button>
-      <dialog id='add_new_court_modal' className='modal'>
+      <dialog
+        id='add_new_court_modal'
+        className='modal modal-bottom sm:modal-middle'
+      >
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Add new court</h3>
           <div className='flex flex-col'>
             <div className='form-control my-4'>
               <div className='label-text text-base font-bold'>When?</div>
-              <label className='input input-bordered flex items-center gap-2 my-2'>
+              <label
+                className={`input ${
+                  courtDateTimeErrorMessage != null ? 'input-error' : ''
+                } input-bordered flex items-center gap-2 my-2`}
+              >
                 <input
                   type='datetime-local'
                   className='grow'
@@ -76,6 +99,9 @@ const AddCourtButton = () => {
                   onChange={handleDateChange}
                 />
               </label>
+              {courtDateTimeErrorMessage != null && (
+                <div className='text-red-400'>{courtDateTimeErrorMessage}</div>
+              )}
             </div>
             <div className='form-control'>
               <label className='label cursor-pointer'>
@@ -110,11 +136,18 @@ const AddCourtButton = () => {
           <div className='modal-action'>
             <form method='dialog'>
               {/* if there is a button in form, it will close the modal */}
-              <button className='btn me-2' onClick={cleanForm}>
-                Close
-              </button>
-              <button className='btn btn-primary'>Create</button>
+              {!isCreatingCourt && (
+                <button className='btn me-2' onClick={cleanForm}>
+                  Close
+                </button>
+              )}
             </form>
+            <button className='btn btn-primary' onClick={handleSubmit}>
+              {isCreatingCourt && (
+                <span className='loading loading-spinner'></span>
+              )}
+              Create
+            </button>
           </div>
         </div>
       </dialog>
