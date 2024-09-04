@@ -1,5 +1,5 @@
 import CourtItem from '@components/CourtItem';
-import { Court } from '@prisma/client';
+import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 
 export default async function Home() {
