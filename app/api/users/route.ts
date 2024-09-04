@@ -1,27 +1,28 @@
 import { PrismaClient } from '@prisma/client';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
 const db = new PrismaClient();
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { id, first_name, last_name } = req.body.data;
+export async function POST(req: Request) {
+  try {
+    // Parse the request body
+    const { id, first_name, last_name } = await req.json(); // Use req.json() to parse the body
 
-    try {
-      // Create a new player in the database
-      const newPlayer = await db.player.create({
-        data: {
-          firstName: first_name,
-          lastName: last_name,
-          id: id,
-          level: 0, // Default player level on sign-up
-        },
-      });
-      res.status(201).json({ player: newPlayer });
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to create player' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+    // Create a new player in the database
+    const newPlayer = await db.player.create({
+      data: {
+        firstName: first_name,
+        lastName: last_name,
+        id: id,
+        level: 0, // Default player level on sign-up
+      },
+    });
+
+    return NextResponse.json({ player: newPlayer }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to create player' },
+      { status: 500 }
+    );
   }
 }
