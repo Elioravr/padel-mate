@@ -2,9 +2,18 @@
 
 import { useState } from 'react';
 
+const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
+const OTHER_LOCATION_OPTION_VALUE = 'other...';
+
 const AddCourtButton = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [courtDateTime, setCourtDateTime] = useState<string>('');
+  const [location, setLocation] = useState<string>(
+    'כפר המכבייה רמת גן (מגרשים)'
+  );
+  const [otherLocation, setOtherLocation] = useState<string>(
+    DEFAULT_OTHER_LOCATION_VALUE
+  );
   const [courtDateTimeErrorMessage, setCourtDateTimeErrorMessage] = useState<
     string | null
   >(null);
@@ -19,10 +28,24 @@ const AddCourtButton = () => {
     setCourtDateTimeErrorMessage(null);
   };
 
+  const handleLocationChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setLocation(event.target.value);
+  };
+
+  const handleOtherLocationChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setOtherLocation(event.target.value);
+  };
+
   const cleanForm = () => {
     setIsPublic(false);
     setCourtDateTime('');
     setCourtDateTimeErrorMessage(null);
+    setLocation('');
+    setOtherLocation(DEFAULT_OTHER_LOCATION_VALUE);
   };
 
   const handleSubmit = () => {
@@ -88,26 +111,65 @@ const AddCourtButton = () => {
             <div className='form-control my-4'>
               <div className='label-text text-base font-bold'>Where?</div>
               <select
-                className='select select-bordered w-full max-w-xs my-2'
-                autoFocus
+                className='select select-bordered w-full my-2'
+                value={location}
+                onChange={handleLocationChange}
               >
-                <option>כפר המכבייה רמת גן (מגרשים)</option>
-                <option>אוניברסיטת תל אביב (מגרשים)</option>
-                <option>כפר סבא (מגרשים)</option>
-                <option>ראשון לציון (מגרשים)</option>
-                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
-                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
-                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
-                <option>וילסון קלאב פאדל חולון (לזוז)</option>
-                <option>וילסון קלאב פאדל ראשון לציון (לזוז)</option>
-                <option>פאדל טיים רעננה (לזוז)</option>
-                <option>פאדל קאנטרי כפר סבא (לזוז)</option>
-                <option>וילסון רחובות (לזוז)</option>
-                <option>וילסון מועדון הפאדל ירושלים (לזוז)</option>
-                <option>הרצליה (טופ פאדל)</option>
-                <option>סביון (טופ פאדל)</option>
-                <option>נתניה (טופ פאדל)</option>
+                <option value='כפר המכבייה רמת גן (מגרשים)'>
+                  כפר המכבייה רמת גן (מגרשים)
+                </option>
+                <option value='אוניברסיטת תל אביב (מגרשים)'>
+                  אוניברסיטת תל אביב (מגרשים)
+                </option>
+                <option value='כפר סבא (מגרשים)'>כפר סבא (מגרשים)</option>
+                <option value='ראשון לציון (מגרשים)'>
+                  ראשון לציון (מגרשים)
+                </option>
+                <option value='פאדל טיים קאנטרי דקל (לזוז)'>
+                  פאדל טיים קאנטרי דקל (לזוז)
+                </option>
+                <option value='וילסון קלאב פאדל חולון (לזוז)'>
+                  וילסון קלאב פאדל חולון (לזוז)
+                </option>
+                <option value='וילסון קלאב פאדל ראשון לציון (לזוז)'>
+                  וילסון קלאב פאדל ראשון לציון (לזוז)
+                </option>
+                <option value='פאדל טיים רעננה (לזוז)'>
+                  פאדל טיים רעננה (לזוז)
+                </option>
+                <option value='פאדל קאנטרי כפר סבא (לזוז)'>
+                  פאדל קאנטרי כפר סבא (לזוז)
+                </option>
+                <option value='וילסון רחובות (לזוז)'>
+                  וילסון רחובות (לזוז)
+                </option>
+                <option value='וילסון מועדון הפאדל ירושלים (לזוז)'>
+                  וילסון מועדון הפאדל ירושלים (לזוז)
+                </option>
+                <option value='הרצליה (טופ פאדל)'>הרצליה (טופ פאדל)</option>
+                <option value='סביון (טופ פאדל)'>סביון (טופ פאדל)</option>
+                <option value='נתניה (טופ פאדל)'>נתניה (טופ פאדל)</option>
+                <option value={OTHER_LOCATION_OPTION_VALUE}>
+                  {OTHER_LOCATION_OPTION_VALUE}
+                </option>
               </select>
+              {location === OTHER_LOCATION_OPTION_VALUE && (
+                <label
+                  className={`input ${
+                    courtDateTimeErrorMessage != null ? 'input-error' : ''
+                  } input-bordered flex items-center gap-2 my-2`}
+                >
+                  <input
+                    dir='auto'
+                    type='text'
+                    autoFocus
+                    placeholder='Where?'
+                    className='grow'
+                    value={otherLocation}
+                    onChange={handleOtherLocationChange}
+                  />
+                </label>
+              )}
             </div>
             <div className='form-control my-4'>
               <div className='label-text text-base font-bold'>When?</div>
@@ -151,6 +213,7 @@ const AddCourtButton = () => {
                   type='checkbox'
                   className='toggle'
                   checked={isPublic}
+                  autoFocus
                   onChange={handleCheckboxChange}
                 />
               </label>
