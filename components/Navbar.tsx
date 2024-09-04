@@ -1,4 +1,5 @@
 import { SignedIn, UserButton } from '@clerk/nextjs';
+import AddCourtButton from '@components/AddCourtButton';
 import Logo from '@components/Logo';
 import Link from 'next/link';
 
@@ -10,7 +11,10 @@ export default function Navbar() {
           <Logo animated={true} />
         </Link>
         <SignedIn>
-          <UserButton />
+          <div className='flex items-center'>
+            <UserButton />
+            <AddCourtButton />
+          </div>
         </SignedIn>
       </div>
     </div>
