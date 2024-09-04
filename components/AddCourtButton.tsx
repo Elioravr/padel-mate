@@ -162,7 +162,6 @@ const AddCourtButton = () => {
                   <input
                     dir='auto'
                     type='text'
-                    autoFocus
                     placeholder='Where?'
                     className='grow'
                     value={otherLocation}
