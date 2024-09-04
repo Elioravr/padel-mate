@@ -17,7 +17,7 @@ function CourtItem({ court }: { court: Court }) {
       </figure>
       <div className='card-body'>
         <h2 className='card-title'>{`${court.owner.firstName} ${court.owner.lastName}'s Court`}</h2>
-        <div className='badge badge-secondary'>{court.location}</div>
+        <div className='badge badge-info'>{court.location}</div>
         <div className='flex flex-wrap gap-1'>
           {court.players.map((player, index) => {
             return (
