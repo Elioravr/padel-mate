@@ -86,6 +86,30 @@ const AddCourtButton = () => {
           <h3 className='font-bold text-lg'>Add new court</h3>
           <div className='flex flex-col'>
             <div className='form-control my-4'>
+              <div className='label-text text-base font-bold'>Where?</div>
+              <select
+                className='select select-bordered w-full max-w-xs my-2'
+                autoFocus
+              >
+                <option>כפר המכבייה רמת גן (מגרשים)</option>
+                <option>אוניברסיטת תל אביב (מגרשים)</option>
+                <option>כפר סבא (מגרשים)</option>
+                <option>ראשון לציון (מגרשים)</option>
+                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
+                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
+                <option>פאדל טיים קאנטרי דקל (לזוז)</option>
+                <option>וילסון קלאב פאדל חולון (לזוז)</option>
+                <option>וילסון קלאב פאדל ראשון לציון (לזוז)</option>
+                <option>פאדל טיים רעננה (לזוז)</option>
+                <option>פאדל קאנטרי כפר סבא (לזוז)</option>
+                <option>וילסון רחובות (לזוז)</option>
+                <option>וילסון מועדון הפאדל ירושלים (לזוז)</option>
+                <option>הרצליה (טופ פאדל)</option>
+                <option>סביון (טופ פאדל)</option>
+                <option>נתניה (טופ פאדל)</option>
+              </select>
+            </div>
+            <div className='form-control my-4'>
               <div className='label-text text-base font-bold'>When?</div>
               <label
                 className={`input ${
@@ -127,7 +151,6 @@ const AddCourtButton = () => {
                   type='checkbox'
                   className='toggle'
                   checked={isPublic}
-                  autoFocus
                   onChange={handleCheckboxChange}
                 />
               </label>
