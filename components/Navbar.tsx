@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 import Logo from '@components/Logo';
 import Link from 'next/link';
 
@@ -9,9 +9,6 @@ export default function Navbar() {
         <Link href='/'>
           <Logo animated={true} />
         </Link>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
         <SignedIn>
           <UserButton />
         </SignedIn>
