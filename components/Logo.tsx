@@ -1,4 +1,3 @@
-import React from 'react';
 import { Pacifico } from 'next/font/google';
 import Image from 'next/image';
 
@@ -26,14 +25,16 @@ const Logo = ({
   }
 
   return (
-    <div className={`flex ${animated ? 'animate-bounce' : ''}`}>
+    <div className='flex'>
       {includeLogo && (
         <Image
           src='/images/logo.png'
           alt='padelmate-logo'
           width={logoSize}
           height={logoSize}
-          className={includeText ? 'mr-2' : ''}
+          className={`${includeText ? 'mr-2' : ''} ${
+            animated ? 'animate-bounce' : ''
+          }`}
         />
       )}
       {includeText && (
