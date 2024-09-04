@@ -32,7 +32,7 @@ export const courts: Court[] = [
     date: new Date(2024, 8, 3, 10, 0).toISOString(),
   },
   {
-    location: 'קאנטרי דקל בתל אביב',
+    location: 'קאנטרי דקל - תל אביב',
     owner: players[4], // עודד רון
     players: [players[4], players[5], players[6], players[7]],
     date: new Date(2024, 8, 3, 11, 0).toISOString(),
@@ -56,7 +56,7 @@ export const courts: Court[] = [
     date: new Date(2024, 8, 5, 9, 0).toISOString(),
   },
   {
-    location: 'קאנטרי דקל בתל אביב',
+    location: 'קאנטרי דקל - תל אביב',
     owner: players[5], // בן רבינוביץ
     players: [players[5], players[1], players[4]],
     date: new Date(2024, 8, 5, 10, 0).toISOString(),
@@ -80,7 +80,7 @@ export const courts: Court[] = [
     date: new Date(2024, 8, 7, 9, 0).toISOString(),
   },
   {
-    location: 'קאנטרי דקל בתל אביב',
+    location: 'קאנטרי דקל - תל אביב',
     owner: players[4], // עודד רון
     players: [players[4], players[0], players[2]],
     date: new Date(2024, 8, 7, 10, 0).toISOString(),
