@@ -27,7 +27,7 @@ const Page = async ({ params }: { params: { userId: string } }) => {
       <div className='card-body'>
         <h2 className='card-title'>
           {player.firstName} {player.lastName}
-          <div className='badge badge-info'>Level {player.level}</div>
+          <div className='badge badge-info'>Level: {player.level}</div>
         </h2>
         <p>Have already booked 3 games using PadelMate</p>
         <div className='card-actions justify-end'></div>
