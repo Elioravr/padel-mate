@@ -13,15 +13,60 @@ export type Court = {
 };
 
 export const players: Player[] = [
-  { id: 1, firstName: 'אליאור', lastName: 'אברמוביץ', level: 3.25 },
-  { id: 2, firstName: 'שלומי', lastName: 'אברמוביץ', level: 3.25 },
-  { id: 3, firstName: 'רותם', lastName: 'נתן', level: 3.5 },
-  { id: 4, firstName: 'אייל', lastName: 'מירון', level: 3.5 },
-  { id: 5, firstName: 'עודד', lastName: 'רון', level: 3.25 },
-  { id: 6, firstName: 'בן', lastName: 'רבינוביץ', level: 3 },
-  { id: 7, firstName: 'אייל', lastName: 'הוכמן', level: 2 },
-  { id: 8, firstName: 'רועי', lastName: 'שפר', level: 3 },
-  { id: 9, firstName: 'עמית', lastName: 'מור', level: 3 },
+  {
+    id: '093acce6-e82b-4217-b981-02d0043aa999',
+    firstName: 'אליאור',
+    lastName: 'אברמוביץ',
+    level: 3.25,
+  },
+  {
+    id: '1600a328-ec16-4376-9b1f-906e3a729d98',
+    firstName: 'בן',
+    lastName: 'רבינוביץ',
+    level: 3,
+  },
+  {
+    id: '860bc5ff-c7bd-4975-8b8f-94320b9a9df9',
+    firstName: 'אייל',
+    lastName: 'מירון',
+    level: 3.5,
+  },
+  {
+    id: '8cb7a9dd-e144-4414-b57c-ae315987d07c',
+    firstName: 'רותם',
+    lastName: 'נתן',
+    level: 3.5,
+  },
+  {
+    id: 'a25bbfb5-14f2-4a77-a1bd-c7e383b6676e',
+    firstName: 'עודד',
+    lastName: 'רון',
+    level: 3.25,
+  },
+  {
+    id: 'a763085d-389f-44ee-84e4-b38b7aa12f78',
+    firstName: 'עמית',
+    lastName: 'מור',
+    level: 3,
+  },
+  {
+    id: 'e7e94d2f-04e9-40d2-9c82-0b6105aa9462',
+    firstName: 'אייל',
+    lastName: 'הוכמן',
+    level: 2,
+  },
+  {
+    id: 'efe694f3-2655-4c9f-ac1d-9933dfbdf341',
+    firstName: 'שלומי',
+    lastName: 'אברמוביץ',
+    level: 3.25,
+  },
+  {
+    id: 'f6c88f99-0534-499b-af8d-2b953e4a48c6',
+    firstName: 'רועי',
+    lastName: 'שפר',
+    level: 3,
+  },
 ];
 
 export const courts: Court[] = [
