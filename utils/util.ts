@@ -23,7 +23,7 @@ export function formatDate(dateAsString: Date): string {
 export function getBaseURL() {
   const apiUrl =
     process.env.NODE_ENV === 'production'
-      ? 'https://padel-mate.vercel.app/'
+      ? 'https://padelmate.elioravr.com/'
       : 'http://localhost:3000';
 
   return apiUrl;
