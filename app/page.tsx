@@ -44,7 +44,7 @@ export default async function Home() {
               return (
                 <div key={index} className='carousel-item'>
                   <Link href={`/users/${player.id}`}>
-                    <PlayerItem player={player} size='medium' />
+                    <PlayerItem player={player} size='small' />
                   </Link>
                 </div>
               );

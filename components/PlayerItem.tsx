@@ -27,7 +27,11 @@ const PlayerItem = ({
         />
       </figure>
       <div className='card-body'>
-        <h2 className='card-title flex flex-wrap'>
+        <h2
+          className={`card-title flex flex-wrap ${
+            size === 'small' ? 'flex-col items-start' : ''
+          }`}
+        >
           {player.firstName} {player.lastName}
           {player.level === 0 ? (
             <div className='badge badge-info'>Level: Not set</div>
