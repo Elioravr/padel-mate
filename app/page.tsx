@@ -26,7 +26,9 @@ export default async function Home() {
             courts.map((court, index) => {
               return (
                 <div key={index} className='carousel-item'>
-                  <CourtItem court={court} />
+                  <Link href={`/courts/${court.id}`}>
+                    <CourtItem court={court} />
+                  </Link>
                 </div>
               );
             })

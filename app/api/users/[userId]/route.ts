@@ -7,12 +7,10 @@ export async function GET(
   req: Request,
   { params }: { params: { userId: string } }
 ) {
-  const allPlayers = await db.player.findMany();
-
   const { userId } = params;
-
-  // Find user by ID
-  const user = allPlayers.find((player) => player.id.toString() === userId);
+  const user = await db.player.findUnique({
+    where: { id: userId },
+  });
 
   if (user) {
     return NextResponse.json(user);

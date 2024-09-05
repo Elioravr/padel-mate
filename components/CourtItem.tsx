@@ -1,11 +1,31 @@
+import { auth } from '@clerk/nextjs/server';
 import { Court } from '@utils/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '../utils/util';
 
-function CourtItem({ court }: { court: Court }) {
+function CourtItem({
+  court,
+  size = 'medium',
+}: {
+  court: Court;
+  size?: 'small' | 'medium' | 'large';
+}) {
+  const { userId } = auth();
+
+  let sizeClassName = 'w-96';
+  if (size === 'medium') {
+    sizeClassName = 'w-80';
+  } else if (size === 'small') {
+    sizeClassName = 'w-60';
+  }
+
   return (
-    <div className='card bg-base-100 image-full w-80 shadow-xl'>
+    <div
+      className={`card bg-base-100 ${
+        size === 'large' ? '' : 'image-full'
+      } ${sizeClassName} shadow-xl`}
+    >
       <figure>
         <Image
           src='/images/padel-court.jpg'
@@ -33,6 +53,8 @@ function CourtItem({ court }: { court: Court }) {
         <div className='card-actions justify-end'>
           {court.players.length === 4 ? (
             <div className='badge badge-accent'>Fully booked</div>
+          ) : court.players.some((player) => player.id === userId) ? (
+            <button className='btn btn-outline btn-error'>Leave Game</button>
           ) : (
             <button className='btn btn-primary'>Join Court</button>
           )}
