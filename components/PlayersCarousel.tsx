@@ -17,7 +17,7 @@ const PlayersCarousel = ({
         <h1 className='text-2xl font-bold my-4 px-2'>{title}</h1>
       )}
       <div
-        className={`carousel carousel-center rounded-box w-full space-x-4 p-4`}
+        className={`carousel carousel-center bg-neutral-100 dark:bg-neutral rounded-box w-full space-x-4 p-4`}
       >
         {players.length > 0 ? (
           players.map((player, index) => {

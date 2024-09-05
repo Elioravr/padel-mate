@@ -11,9 +11,11 @@ import { formatDate } from '../utils/util';
 function CourtItem({
   courtId,
   size = 'medium',
+  onCourtUpdate,
 }: {
   courtId: string;
   size?: 'small' | 'medium' | 'large';
+  onCourtUpdate?: Function;
 }) {
   const { userId } = useAuth();
   const [court, setCourt] = useState<Court | null>(null);
@@ -110,7 +112,10 @@ function CourtItem({
           ) : (
             <JoinLeaveCourt
               courtId={courtId}
-              refetchCourtData={refetchCourtData}
+              refetchCourtData={async () => {
+                await refetchCourtData();
+                await onCourtUpdate?.();
+              }}
               isCurrentUserInThisGroup={court.players.some(
                 (player) => player.id === userId
               )}
