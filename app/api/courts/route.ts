@@ -45,6 +45,15 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    await db.court.update({
+      where: { id: newCourt.id },
+      data: {
+        players: {
+          connect: [{ id: userId }],
+        },
+      },
+    });
+
     return NextResponse.json({ court: newCourt }, { status: 201 });
   } catch (error) {
     console.log('error', error);
