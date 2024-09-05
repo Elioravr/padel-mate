@@ -21,7 +21,7 @@ export default async function Home() {
     <main>
       <div className='p-2 flex flex-col'>
         <h1 className='text-2xl font-bold my-4 px-2'>Available Courts</h1>
-        <div className='carousel carousel-center bg-neutral rounded-box w-full space-x-4 p-4'>
+        <div className='carousel carousel-center rounded-box w-full space-x-4 p-4'>
           {courts.length > 0 ? (
             courts.map((court, index) => {
               return (

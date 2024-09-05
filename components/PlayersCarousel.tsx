@@ -5,16 +5,20 @@ import Link from 'next/link';
 const PlayersCarousel = ({
   title,
   players,
+  noPlayersPlaceholder = 'No players available ☹️',
 }: {
   title?: string;
   players: Player[];
+  noPlayersPlaceholder?: string | React.ReactElement;
 }) => {
   return (
     <>
       {title != null && (
         <h1 className='text-2xl font-bold my-4 px-2'>{title}</h1>
       )}
-      <div className='carousel carousel-center bg-neutral rounded-box w-full space-x-4 p-4'>
+      <div
+        className={`carousel carousel-center rounded-box w-full space-x-4 p-4`}
+      >
         {players.length > 0 ? (
           players.map((player, index) => {
             return (
@@ -27,7 +31,7 @@ const PlayersCarousel = ({
           })
         ) : (
           <div className='text-xl flex justify-center items-center w-full h-40'>
-            No players available ☹️
+            {noPlayersPlaceholder}
           </div>
         )}
       </div>

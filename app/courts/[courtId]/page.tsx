@@ -23,7 +23,16 @@ const Page = async ({
       <div className='flex justify-center'>
         <CourtItem courtId={court.id} size='large' />
       </div>
-      <PlayersCarousel title='Players in this court' players={court.players} />
+      <PlayersCarousel
+        title='Players in this court'
+        players={court.players}
+        noPlayersPlaceholder={
+          <div className='text-base flex items-center flex-col'>
+            <div>No players have joined this court yet.</div>
+            <div>Be the first to join! 😎</div>
+          </div>
+        }
+      />
     </div>
   );
 };
