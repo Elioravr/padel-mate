@@ -107,20 +107,17 @@ function CourtItem({
         </div>
         <p>{formatDate(court.date)}</p>
         <div className='card-actions justify-end'>
-          {court.players.length === 4 ? (
-            <div className='badge badge-accent'>Fully booked</div>
-          ) : (
-            <JoinLeaveCourt
-              courtId={courtId}
-              refetchCourtData={async () => {
-                await refetchCourtData();
-                await onCourtUpdate?.();
-              }}
-              isCurrentUserInThisGroup={court.players.some(
-                (player) => player.id === userId
-              )}
-            />
-          )}
+          <JoinLeaveCourt
+            courtId={courtId}
+            isCourtFullyBooked={court.players.length === 4}
+            refetchCourtData={async () => {
+              await refetchCourtData();
+              await onCourtUpdate?.();
+            }}
+            isCurrentUserInThisGroup={court.players.some(
+              (player) => player.id === userId
+            )}
+          />
         </div>
       </div>
     </div>

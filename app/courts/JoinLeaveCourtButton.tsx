@@ -5,10 +5,12 @@ import { useState } from 'react';
 
 export default function JoinLeaveCourt({
   courtId,
+  isCourtFullyBooked,
   isCurrentUserInThisGroup,
   refetchCourtData,
 }: {
   courtId: string;
+  isCourtFullyBooked: boolean;
   isCurrentUserInThisGroup: boolean;
   refetchCourtData: () => Promise<void>;
 }) {
@@ -72,7 +74,7 @@ export default function JoinLeaveCourt({
           {isLoading && <span className='loading loading-spinner'></span>}
           {isLoading ? 'Leaving...' : 'Leave Court'}
         </button>
-      ) : (
+      ) : isCourtFullyBooked ? (
         <button
           className='btn btn-primary'
           onClick={joinCourt}
@@ -81,6 +83,8 @@ export default function JoinLeaveCourt({
           {isLoading && <span className='loading loading-spinner'></span>}
           {isLoading ? 'Joining...' : 'Join Court'}
         </button>
+      ) : (
+        <div className='badge badge-accent'>Fully booked</div>
       )}
     </div>
   );
