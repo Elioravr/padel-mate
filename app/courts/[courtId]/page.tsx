@@ -21,7 +21,7 @@ const Page = async ({
   return (
     <div className='flex justify-center flex-col p-3'>
       <div className='flex justify-center'>
-        <CourtItem court={court} size='large' />
+        <CourtItem courtId={court.id} size='large' />
       </div>
       <PlayersCarousel title='Players in this court' players={court.players} />
     </div>

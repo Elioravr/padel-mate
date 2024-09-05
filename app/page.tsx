@@ -27,7 +27,7 @@ export default async function Home() {
               return (
                 <div key={index} className='carousel-item'>
                   <Link href={`/courts/${court.id}`}>
-                    <CourtItem court={court} />
+                    <CourtItem courtId={court.id} />
                   </Link>
                 </div>
               );

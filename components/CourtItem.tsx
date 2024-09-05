@@ -1,23 +1,77 @@
-import { auth } from '@clerk/nextjs/server';
+'use client';
+
+import JoinLeaveCourt from '@app/courts/JoinLeaveCourtButton';
+import { useAuth } from '@clerk/nextjs';
 import { Court } from '@utils/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { formatDate } from '../utils/util';
 
 function CourtItem({
-  court,
+  courtId,
   size = 'medium',
 }: {
-  court: Court;
+  courtId: string;
   size?: 'small' | 'medium' | 'large';
 }) {
-  const { userId } = auth();
+  const { userId } = useAuth();
+  const [court, setCourt] = useState<Court | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   let sizeClassName = 'w-96';
   if (size === 'medium') {
     sizeClassName = 'w-80';
   } else if (size === 'small') {
     sizeClassName = 'w-60';
+  }
+
+  // Handle refetching the court data after join/leave actions
+  const refetchCourtData = async () => {
+    try {
+      const response = await fetch(`/api/courts/${courtId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setCourt(data);
+      }
+    } catch (err) {
+      console.error('Error refetching court data:', err);
+    }
+  };
+
+  // Fetch the court data when the component mounts
+  useEffect(() => {
+    const fetchCourtData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        await refetchCourtData();
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourtData();
+  }, [courtId]);
+
+  if (loading) {
+    return size === 'large' ? (
+      <div className='flex w-96 flex-col gap-4'>
+        <div className='skeleton h-60 w-full'></div>
+        <div className='skeleton h-4 w-28'></div>
+        <div className='skeleton h-4 w-full'></div>
+        <div className='skeleton h-4 w-full'></div>
+      </div>
+    ) : (
+      <div className='skeleton h-72 w-80'></div>
+    );
+  }
+
+  if (court == null) {
+    return null;
   }
 
   return (
@@ -53,10 +107,14 @@ function CourtItem({
         <div className='card-actions justify-end'>
           {court.players.length === 4 ? (
             <div className='badge badge-accent'>Fully booked</div>
-          ) : court.players.some((player) => player.id === userId) ? (
-            <button className='btn btn-outline btn-error'>Leave Game</button>
           ) : (
-            <button className='btn btn-primary'>Join Court</button>
+            <JoinLeaveCourt
+              courtId={courtId}
+              refetchCourtData={refetchCourtData}
+              isCurrentUserInThisGroup={court.players.some(
+                (player) => player.id === userId
+              )}
+            />
           )}
         </div>
       </div>
