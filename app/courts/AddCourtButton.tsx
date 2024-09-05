@@ -11,7 +11,7 @@ const OTHER_LOCATION_OPTION_VALUE = 'other...';
 const AddCourtButton = ({
   fullSizeButton = false,
 }: {
-  fullSizeButton: boolean;
+  fullSizeButton?: boolean;
 }) => {
   const [isPublic, setIsPublic] = useState(false);
   const [courtDateTime, setCourtDateTime] = useState<string>('');
