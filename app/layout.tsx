@@ -73,7 +73,6 @@ export default function RootLayout({
 
           {/* For Android */}
           <meta name='theme-color' content='#1d232a' />
-          <link rel='manifest' href='/manifest.json' />
         </head>
         <body className={inter.className}>
           <Navbar />
