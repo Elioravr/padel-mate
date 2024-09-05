@@ -67,6 +67,8 @@ const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
           </div>
         }
         enableRemovePlayerButton
+        courtId={courtId}
+        onCourtUpdate={handleCourtChange}
       />
     </div>
   );

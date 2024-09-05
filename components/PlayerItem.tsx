@@ -1,3 +1,4 @@
+import RemovePlayerFromGameButton from '@app/api/users/RemovePlayerFromGameButton';
 import { Player } from '@prisma/client';
 import Image from 'next/image';
 
@@ -5,10 +6,14 @@ const PlayerItem = ({
   player,
   size = 'large',
   enableRemovePlayerButton = false,
+  courtId,
+  onCourtUpdate,
 }: {
   player: Player;
   size?: 'small' | 'medium' | 'large';
   enableRemovePlayerButton: boolean;
+  courtId?: string; // in the context of court, in order to remove the player
+  onCourtUpdate?: Function; // in the context of court, after the removal of the player
 }) => {
   let sizeClassName = 'w-96';
   if (size === 'medium') {
@@ -43,8 +48,12 @@ const PlayerItem = ({
         </h2>
         <p>Have already booked 3 games using PadelMate</p>
         <div className='card-actions justify-center'>
-          {enableRemovePlayerButton && (
-            <button className='btn btn-error'>Remove from game</button>
+          {enableRemovePlayerButton && courtId != null && (
+            <RemovePlayerFromGameButton
+              playerId={player.id}
+              courtId={courtId}
+              onCourtUpdate={onCourtUpdate}
+            />
           )}
         </div>
       </div>

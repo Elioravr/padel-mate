@@ -7,11 +7,15 @@ const PlayersCarousel = ({
   players,
   noPlayersPlaceholder = 'No players available ☹️',
   enableRemovePlayerButton = false,
+  courtId,
+  onCourtUpdate,
 }: {
   title?: string;
   players: Player[];
   noPlayersPlaceholder?: string | React.ReactElement;
   enableRemovePlayerButton?: boolean;
+  courtId?: string; // in the context of court, in order to remove the player
+  onCourtUpdate?: Function; // in the context of court, after the removal of the player
 }) => {
   return (
     <>
@@ -30,6 +34,8 @@ const PlayersCarousel = ({
                     player={player}
                     size='small'
                     enableRemovePlayerButton={enableRemovePlayerButton}
+                    courtId={courtId}
+                    onCourtUpdate={onCourtUpdate}
                   />
                 </Link>
               </div>
