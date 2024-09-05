@@ -8,7 +8,11 @@ const DEFAULT_LOCATION_VALUE = 'כפר המכבייה רמת גן (מגרשים)
 const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
 const OTHER_LOCATION_OPTION_VALUE = 'other...';
 
-const AddCourtButton = () => {
+const AddCourtButton = ({
+  fullSizeButton = false,
+}: {
+  fullSizeButton: boolean;
+}) => {
   const [isPublic, setIsPublic] = useState(false);
   const [courtDateTime, setCourtDateTime] = useState<string>('');
   const [location, setLocation] = useState<string>(DEFAULT_LOCATION_VALUE);
@@ -156,15 +160,16 @@ const AddCourtButton = () => {
     ) : null;
 
   return (
-    <div className='ml-3'>
+    <div className={fullSizeButton ? '' : 'ml-3'}>
       <button
         onClick={() =>
           (
             document.getElementById('add_new_court_modal') as HTMLDialogElement
           )?.showModal()
         }
+        className={fullSizeButton ? 'btn btn-active btn-primary w-full' : ''}
       >
-        {icon}
+        {fullSizeButton ? 'Add new Court' : icon}
       </button>
       <dialog
         id='add_new_court_modal'

@@ -4,6 +4,7 @@ import { Player } from '@prisma/client';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import Link from 'next/link';
+import AddCourtButton from './courts/AddCourtButton';
 
 export default async function Home() {
   const courtesRes = await fetch(`${getBaseURL()}/api/courts`, {
@@ -20,6 +21,7 @@ export default async function Home() {
   return (
     <main>
       <div className='p-2 flex flex-col'>
+        <AddCourtButton fullSizeButton />
         <h1 className='text-2xl font-bold my-4 px-2'>Available Courts</h1>
         <div className='carousel carousel-center bg-neutral-100 dark:bg-neutral rounded-box w-full space-x-4 p-4'>
           {courts.length > 0 ? (
