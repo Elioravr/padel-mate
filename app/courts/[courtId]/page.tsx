@@ -1,4 +1,5 @@
 import CourtItem from '@components/CourtItem';
+import PlayersCarousel from '@components/PlayersCarousel';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 
@@ -18,8 +19,11 @@ const Page = async ({
   const court: Court = await response.json();
 
   return (
-    <div className='flex justify-center'>
-      <CourtItem court={court} size='large' />
+    <div className='flex justify-center flex-col p-3'>
+      <div className='flex justify-center'>
+        <CourtItem court={court} size='large' />
+      </div>
+      <PlayersCarousel title='Players in this court' players={court.players} />
     </div>
   );
 };

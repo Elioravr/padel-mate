@@ -1,5 +1,5 @@
 import CourtItem from '@components/CourtItem';
-import PlayerItem from '@components/PlayerItem';
+import PlayersCarousel from '@components/PlayersCarousel';
 import { Player } from '@prisma/client';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
@@ -39,24 +39,7 @@ export default async function Home() {
           )}
         </div>
 
-        <h1 className='text-2xl font-bold my-4 px-2'>Registered Players</h1>
-        <div className='carousel carousel-center bg-neutral rounded-box w-full space-x-4 p-4'>
-          {players.length > 0 ? (
-            players.map((player, index) => {
-              return (
-                <div key={index} className='carousel-item'>
-                  <Link href={`/users/${player.id}`}>
-                    <PlayerItem player={player} size='small' />
-                  </Link>
-                </div>
-              );
-            })
-          ) : (
-            <div className='text-xl flex justify-center items-center w-full h-40'>
-              No players available ☹️
-            </div>
-          )}
-        </div>
+        <PlayersCarousel players={players} title='Registered Players' />
       </div>
     </main>
   );
