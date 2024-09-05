@@ -10,6 +10,9 @@ export async function GET() {
       players: true, // This will include the full information of each player
       owner: true, // Optionally include the court owner if needed
     },
+    orderBy: {
+      date: 'asc', // Sort by date in ascending order (earliest to latest)
+    },
   });
 
   return NextResponse.json(

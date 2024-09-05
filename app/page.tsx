@@ -1,17 +1,27 @@
-import CourtItem from '@components/CourtItem';
+import { auth } from '@clerk/nextjs/server';
+import CourtsCarousel from '@components/CourtsCarousel';
 import PlayersCarousel from '@components/PlayersCarousel';
 import { Player } from '@prisma/client';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
-import Link from 'next/link';
 import AddCourtButton from './courts/AddCourtButton';
 
 export default async function Home() {
+  const { userId } = auth();
+
   const courtesRes = await fetch(`${getBaseURL()}/api/courts`, {
     method: 'GET',
     cache: 'no-store', // Disable caching
   });
   const courts: Court[] = await courtesRes.json();
+  const upcomingCourtesRes = await fetch(
+    `${getBaseURL()}/api/courts/upcoming-courts?userId=${userId}`,
+    {
+      method: 'GET',
+      cache: 'no-store', // Disable caching
+    }
+  );
+  const upcomingCourts: Court[] = await upcomingCourtesRes.json();
   const playersRes = await fetch(`${getBaseURL()}/api/users`, {
     method: 'GET',
     cache: 'no-store', // Disable caching
@@ -22,25 +32,8 @@ export default async function Home() {
     <main>
       <div className='p-2 flex flex-col'>
         <AddCourtButton fullSizeButton />
-        <h1 className='text-2xl font-bold my-4 px-2'>Available Courts</h1>
-        <div className='carousel carousel-center bg-neutral-100 dark:bg-neutral rounded-box w-full space-x-4 p-4'>
-          {courts.length > 0 ? (
-            courts.map((court, index) => {
-              return (
-                <div key={index} className='carousel-item'>
-                  <Link href={`/courts/${court.id}`}>
-                    <CourtItem courtId={court.id} />
-                  </Link>
-                </div>
-              );
-            })
-          ) : (
-            <div className='text-xl flex justify-center items-center w-full h-40'>
-              No courts available ☹️
-            </div>
-          )}
-        </div>
-
+        <CourtsCarousel courts={upcomingCourts} title='My Upcoming Courts' />
+        <CourtsCarousel courts={courts} title='Available Public Courts' />
         <PlayersCarousel players={players} title='Registered Players' />
       </div>
     </main>
