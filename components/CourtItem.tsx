@@ -57,7 +57,7 @@ function CourtItem({
     };
 
     fetchCourtData();
-  }, [courtId]);
+  }, []);
 
   if (loading) {
     return size === 'large' ? (

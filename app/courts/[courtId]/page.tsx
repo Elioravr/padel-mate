@@ -5,11 +5,8 @@ import PlayersCarousel from '@components/PlayersCarousel';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import { useEffect, useState } from 'react';
-const Page = async ({
-  params: { courtId },
-}: {
-  params: { courtId: string };
-}) => {
+import AddPlayerButton from '../AddPlayerButton';
+const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
   const [court, setCourt] = useState<Court | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true); // This page is starting by loading
 
@@ -32,7 +29,7 @@ const Page = async ({
 
   useEffect(() => {
     fetchCourt();
-  }, [courtId]);
+  }, []);
 
   const handleCourtChange = async () => {
     await fetchCourt();
@@ -55,6 +52,11 @@ const Page = async ({
           onCourtUpdate={handleCourtChange}
         />
       </div>
+      <AddPlayerButton
+        courtId={court.id}
+        playersToExclude={court.players}
+        onCourtUpdate={handleCourtChange}
+      />
       <PlayersCarousel
         title='Players in this court'
         players={court.players}
