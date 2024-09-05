@@ -66,6 +66,7 @@ const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
             <div>Be the first to join! 😎</div>
           </div>
         }
+        enableRemovePlayerButton
       />
     </div>
   );

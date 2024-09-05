@@ -6,10 +6,12 @@ const PlayersCarousel = ({
   title,
   players,
   noPlayersPlaceholder = 'No players available ☹️',
+  enableRemovePlayerButton = false,
 }: {
   title?: string;
   players: Player[];
   noPlayersPlaceholder?: string | React.ReactElement;
+  enableRemovePlayerButton?: boolean;
 }) => {
   return (
     <>
@@ -24,7 +26,11 @@ const PlayersCarousel = ({
             return (
               <div key={index} className='carousel-item'>
                 <Link href={`/users/${player.id}`}>
-                  <PlayerItem player={player} size='small' />
+                  <PlayerItem
+                    player={player}
+                    size='small'
+                    enableRemovePlayerButton={enableRemovePlayerButton}
+                  />
                 </Link>
               </div>
             );

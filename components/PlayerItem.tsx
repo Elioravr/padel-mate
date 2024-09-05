@@ -4,9 +4,11 @@ import Image from 'next/image';
 const PlayerItem = ({
   player,
   size = 'large',
+  enableRemovePlayerButton = false,
 }: {
   player: Player;
   size?: 'small' | 'medium' | 'large';
+  enableRemovePlayerButton: boolean;
 }) => {
   let sizeClassName = 'w-96';
   if (size === 'medium') {
@@ -40,7 +42,11 @@ const PlayerItem = ({
           )}
         </h2>
         <p>Have already booked 3 games using PadelMate</p>
-        <div className='card-actions justify-end'></div>
+        <div className='card-actions justify-center'>
+          {enableRemovePlayerButton && (
+            <button className='btn btn-error'>Remove from game</button>
+          )}
+        </div>
       </div>
     </div>
   );
