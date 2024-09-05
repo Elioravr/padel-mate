@@ -11,7 +11,7 @@ const PlayerItem = ({
 }: {
   player: Player;
   size?: 'small' | 'medium' | 'large';
-  enableRemovePlayerButton: boolean;
+  enableRemovePlayerButton?: boolean;
   courtId?: string; // in the context of court, in order to remove the player
   onCourtUpdate?: Function; // in the context of court, after the removal of the player
 }) => {
