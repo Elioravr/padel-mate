@@ -74,7 +74,7 @@ export default function JoinLeaveCourt({
           {isLoading && <span className='loading loading-spinner'></span>}
           {isLoading ? 'Leaving...' : 'Leave Court'}
         </button>
-      ) : isCourtFullyBooked ? (
+      ) : !isCourtFullyBooked ? (
         <button
           className='btn btn-primary'
           onClick={joinCourt}
