@@ -3,7 +3,6 @@
 import { Court } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { formatDate } from '../../utils/util';
 
 const DEFAULT_LOCATION_VALUE = 'כפר המכבייה רמת גן (מגרשים)';
 const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
@@ -60,7 +59,7 @@ const AddCourtButton = ({
 
   const createCourt = async () => {
     const courtData = {
-      date: new Date(formatDate(new Date(courtDateTime))).toISOString(),
+      date: new Date(courtDateTime).toISOString(),
       isPublic,
       location:
         location === DEFAULT_OTHER_LOCATION_VALUE ? otherLocation : location,
@@ -89,6 +88,7 @@ const AddCourtButton = ({
   };
 
   const handleSubmit = async () => {
+    console.log('submit');
     if (courtDateTime === '') {
       return setCourtDateTimeErrorMessage(
         'Please enter the court date and time'
