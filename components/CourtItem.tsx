@@ -107,7 +107,7 @@ function CourtItem({
           })}
         </div>
         <p>{formatDate(court.date)}</p>
-        <ShareToWhatsappButton />
+        {size === 'large' && <ShareToWhatsappButton />}
         <div className='card-actions justify-end'>
           <JoinLeaveCourt
             courtId={courtId}
