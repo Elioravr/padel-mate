@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   try {
     // Parse the request body
     const {
-      data: { id, first_name, last_name },
+      data: { id, first_name, last_name, email_addresses },
     } = await req.json(); // Extract the fields you need from req.json()
 
     // Make sure required fields exist
@@ -42,6 +42,7 @@ export async function POST(req: Request) {
         id: id, // Clerk user ID
         firstName: first_name,
         lastName: last_name,
+        email: email_addresses[0].email_address,
         level: 0, // Default player level on sign-up
       },
     });

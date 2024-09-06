@@ -14,6 +14,7 @@ model Player {
   id          String      @id @default(uuid())
   firstName   String
   lastName    String
+  email       String?
   level       Float
   courts      Court[]  @relation("CourtPlayers") // Many-to-many relation
   ownedCourts Court[]  @relation("CourtOwner")   // One-to-many relation
