@@ -66,3 +66,57 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const { userId } = getAuth(req);
+
+  if (!userId) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { searchParams } = new URL(req.url);
+    const courtId = searchParams.get('id');
+
+    if (!courtId) {
+      return NextResponse.json(
+        { message: 'Court ID is required' },
+        { status: 400 }
+      );
+    }
+
+    // Find the court to ensure the user is the owner before deletion
+    const court = await db.court.findUnique({
+      where: { id: courtId },
+      select: { ownerId: true },
+    });
+
+    if (!court) {
+      return NextResponse.json({ message: 'Court not found' }, { status: 404 });
+    }
+
+    // Ensure the user is the owner of the court
+    if (court.ownerId !== userId) {
+      return NextResponse.json(
+        { message: 'Unauthorized to delete this court' },
+        { status: 403 }
+      );
+    }
+
+    // Delete the court
+    await db.court.delete({
+      where: { id: courtId },
+    });
+
+    return NextResponse.json(
+      { message: 'Court deleted successfully' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error deleting court:', error);
+    return NextResponse.json(
+      { error: `Failed to delete court ${error}` },
+      { status: 500 }
+    );
+  }
+}

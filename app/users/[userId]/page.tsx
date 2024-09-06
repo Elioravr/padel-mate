@@ -37,7 +37,9 @@ const Page = async ({ params }: { params: { userId: string } }) => {
 
   return (
     <div className='flex flex-col p-2'>
-      <PlayerItem player={player} />
+      <div className='flex justify-center'>
+        <PlayerItem player={player} />
+      </div>
 
       <CourtsCarousel
         title={`Upcoming Courts for ${player.firstName}`}

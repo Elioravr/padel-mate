@@ -1,11 +1,12 @@
 'use client';
 
+import AddPlayerButton from '@app/courts/AddPlayerButton';
+import DeleteCourtButton from '@app/courts/DeleteCourtButton';
 import CourtItem from '@components/CourtItem';
 import PlayersCarousel from '@components/PlayersCarousel';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import { useEffect, useState } from 'react';
-import AddPlayerButton from '../AddPlayerButton';
 const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
   const [court, setCourt] = useState<Court | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true); // This page is starting by loading
@@ -70,6 +71,8 @@ const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
         courtId={courtId}
         onCourtUpdate={handleCourtChange}
       />
+
+      <DeleteCourtButton courtId={court.id} />
     </div>
   );
 };
