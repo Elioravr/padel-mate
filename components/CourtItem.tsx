@@ -1,6 +1,7 @@
 'use client';
 
 import JoinLeaveCourt from '@app/courts/JoinLeaveCourtButton';
+import ShareToWhatsappButton from '@app/courts/ShareToWhatsappButton';
 import { useAuth } from '@clerk/nextjs';
 import { Court } from '@utils/types';
 import Image from 'next/image';
@@ -106,6 +107,7 @@ function CourtItem({
           })}
         </div>
         <p>{formatDate(court.date)}</p>
+        <ShareToWhatsappButton />
         <div className='card-actions justify-end'>
           <JoinLeaveCourt
             courtId={courtId}
