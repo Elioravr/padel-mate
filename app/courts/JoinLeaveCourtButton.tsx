@@ -31,10 +31,13 @@ export default function JoinLeaveCourt({
         },
         body: JSON.stringify({ courtId, userId }), // Replace with actual user ID
       });
-      if (!response.ok) throw new Error('Failed to join court');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to join court');
+      }
       await refetchCourtData(); // Refetch the court data
     } catch (err) {
-      setError((err as Error).message);
+      alert((err as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +66,7 @@ export default function JoinLeaveCourt({
   };
 
   return (
-    <div>
+    <div className='flex flex-col justify-end'>
       {error && <div className='text-red-500'>{error}</div>}
       {isCurrentUserInThisGroup ? (
         <button

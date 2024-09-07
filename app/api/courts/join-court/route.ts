@@ -8,6 +8,22 @@ export async function POST(req: Request) {
   try {
     const { courtId, userId } = await req.json();
 
+    // Find the current number of players in the court
+    const courtWithPlayers = await db.court.findUnique({
+      where: { id: courtId },
+      include: { players: true },
+    });
+
+    if (courtWithPlayers && courtWithPlayers.players.length >= 4) {
+      return NextResponse.json(
+        {
+          error:
+            'The court is full, and no more players can be added. It’s possible someone joined just before you. Please refresh to view the most up-to-date list of players.',
+        },
+        { status: 400 }
+      );
+    }
+
     const updatedCourt = await db.court.update({
       where: { id: courtId },
       data: {
@@ -22,7 +38,6 @@ export async function POST(req: Request) {
       cache: 'no-store', // Disable caching
     });
     const player: Player = await playerResponse.json();
-    console.log('player', player);
 
     await fetch(
       `${getBaseURL()}/api/send-email?playerEmailAddress=${
