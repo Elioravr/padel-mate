@@ -1,5 +1,6 @@
-import { ClerkProvider, SignedIn, SignedOut, SignIn } from '@clerk/nextjs';
+import { ClerkProvider, SignedOut } from '@clerk/nextjs';
 import Navbar from '@components/Navbar';
+import SignInModal from '@components/SignInModal';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -78,13 +79,10 @@ export default function RootLayout({
         <body className={inter.className}>
           <Navbar />
           <div className='pt-16'></div>
-
+          {children}
           <SignedOut>
-            <div className='flex justify-center items-center'>
-              <SignIn routing='hash' />
-            </div>
+            <SignInModal />
           </SignedOut>
-          <SignedIn>{children}</SignedIn>
         </body>
       </html>
     </ClerkProvider>
