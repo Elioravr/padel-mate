@@ -46,7 +46,7 @@ const PlayerItem = ({
             <div className='badge badge-info'>Level: {player.level}</div>
           )}
         </h2>
-        <p>Have already booked {player._count?.courts} games using PadelMate</p>
+        <p>Has already booked {player._count?.courts} games using PadelMate</p>
         <div className='card-actions justify-center'>
           {enableRemovePlayerButton && courtId != null && (
             <RemovePlayerFromGameButton
