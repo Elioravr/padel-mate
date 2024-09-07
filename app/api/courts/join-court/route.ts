@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { Player, PrismaClient } from '@prisma/client';
+import { getBaseURL } from '@utils/util';
 import { NextResponse } from 'next/server';
 
 const db = new PrismaClient();
@@ -15,6 +16,20 @@ export async function POST(req: Request) {
         },
       },
     });
+
+    const playerResponse = await fetch(`${getBaseURL()}/api/users/${userId}`, {
+      method: 'GET',
+      cache: 'no-store', // Disable caching
+    });
+    const player: Player = await playerResponse.json();
+    console.log('player', player);
+
+    await fetch(
+      `${getBaseURL()}/api/send-email?playerEmailAddress=${
+        player.email
+      }&courtId=${courtId}`,
+      { method: 'GET' }
+    );
 
     return NextResponse.json(
       { message: 'User joined the court', updatedCourt },
