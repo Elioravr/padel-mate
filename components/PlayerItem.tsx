@@ -1,5 +1,5 @@
 import RemovePlayerFromGameButton from '@app/api/users/RemovePlayerFromGameButton';
-import { Player } from '@prisma/client';
+import { Player } from '@utils/types';
 import Image from 'next/image';
 
 const PlayerItem = ({
@@ -46,7 +46,7 @@ const PlayerItem = ({
             <div className='badge badge-info'>Level: {player.level}</div>
           )}
         </h2>
-        <p>Have already booked 3 games using PadelMate</p>
+        <p>Have already booked {player._count?.courts} games using PadelMate</p>
         <div className='card-actions justify-center'>
           {enableRemovePlayerButton && courtId != null && (
             <RemovePlayerFromGameButton

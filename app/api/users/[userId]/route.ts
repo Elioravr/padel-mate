@@ -10,6 +10,13 @@ export async function GET(
   const { userId } = params;
   const user = await db.player.findUnique({
     where: { id: userId },
+    include: {
+      _count: {
+        select: {
+          courts: true, // Count courts where the player is part of the players array
+        },
+      },
+    },
   });
 
   if (user) {

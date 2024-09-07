@@ -29,7 +29,15 @@ export async function GET(req: NextRequest) {
         },
       },
       include: {
-        players: true, // Include players information
+        players: {
+          include: {
+            _count: {
+              select: {
+                courts: true, // Include the count of courts where each player is a part of
+              },
+            },
+          },
+        }, // Include players information
         owner: true, // Include owner information
       },
       orderBy: {

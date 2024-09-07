@@ -4,7 +4,15 @@ import { NextResponse } from 'next/server';
 const db = new PrismaClient();
 
 export async function GET(req: Request) {
-  const allPlayers = await db.player.findMany();
+  const allPlayers = await db.player.findMany({
+    include: {
+      _count: {
+        select: {
+          courts: true, // Count courts where the player is part of the players array
+        },
+      },
+    },
+  });
 
   return NextResponse.json(allPlayers);
 }

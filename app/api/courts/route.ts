@@ -7,7 +7,15 @@ const db = new PrismaClient();
 export async function GET() {
   const allCourts = await db.court.findMany({
     include: {
-      players: true, // This will include the full information of each player
+      players: {
+        include: {
+          _count: {
+            select: {
+              courts: true, // Include the count of courts where each player is a part of
+            },
+          },
+        },
+      }, // This will include the full information of each player
       owner: true, // Optionally include the court owner if needed
     },
     orderBy: {

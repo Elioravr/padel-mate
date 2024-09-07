@@ -1,7 +1,6 @@
 import CourtsCarousel from '@components/CourtsCarousel';
 import PlayerItem from '@components/PlayerItem';
-import { Player } from '@prisma/client';
-import { Court } from '@utils/types';
+import { Court, Player } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 
 const Page = async ({ params }: { params: { userId: string } }) => {

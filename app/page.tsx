@@ -1,8 +1,7 @@
 import { auth } from '@clerk/nextjs/server';
 import CourtsCarousel from '@components/CourtsCarousel';
 import PlayersCarousel from '@components/PlayersCarousel';
-import { Player } from '@prisma/client';
-import { Court } from '@utils/types';
+import { Court, Player } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import AddCourtButton from './courts/AddCourtButton';
 

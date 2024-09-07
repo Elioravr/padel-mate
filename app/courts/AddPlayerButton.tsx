@@ -1,6 +1,6 @@
 'use client';
 
-import { Player } from '@prisma/client';
+import { Player } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import { useEffect, useMemo, useState } from 'react';
 

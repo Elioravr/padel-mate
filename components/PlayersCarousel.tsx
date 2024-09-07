@@ -1,5 +1,5 @@
 import PlayerItem from '@components/PlayerItem';
-import { Player } from '@prisma/client';
+import { Player } from '@utils/types';
 import Link from 'next/link';
 
 const PlayersCarousel = ({
