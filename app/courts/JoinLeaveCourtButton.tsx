@@ -87,7 +87,7 @@ export default function JoinLeaveCourt({
           {isLoading ? 'Joining...' : 'Join Court'}
         </button>
       ) : (
-        <div className='badge badge-accent'>Fully booked</div>
+        <div className='badge badge-accent mb-3'>Fully booked</div>
       )}
     </div>
   );
