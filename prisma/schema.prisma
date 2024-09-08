@@ -28,4 +28,5 @@ model Court {
   owner     Player   @relation("CourtOwner", fields: [ownerId], references: [id]) // One-to-many relation
   players   Player[] @relation("CourtPlayers") // Many-to-many relation
   date      DateTime
+  duration  Int      @default(90)
 }
