@@ -7,6 +7,7 @@ import { useState } from 'react';
 const DEFAULT_LOCATION_VALUE = 'כפר המכבייה רמת גן (מגרשים)';
 const DEFAULT_OTHER_LOCATION_VALUE = 'מועדון חדש';
 const OTHER_LOCATION_OPTION_VALUE = 'other...';
+const DEFAULT_DURATION_TIME = 90;
 
 const AddCourtButton = ({
   fullSizeButton = false,
@@ -19,6 +20,7 @@ const AddCourtButton = ({
   const [otherLocation, setOtherLocation] = useState<string>(
     DEFAULT_OTHER_LOCATION_VALUE
   );
+  const [duration, setDuration] = useState<number>(DEFAULT_DURATION_TIME);
   const [courtDateTimeErrorMessage, setCourtDateTimeErrorMessage] = useState<
     string | null
   >(null);
@@ -47,12 +49,19 @@ const AddCourtButton = ({
     setOtherLocation(event.target.value);
   };
 
+  const handleDurationChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setDuration(Number(event.target.value));
+  };
+
   const cleanForm = () => {
     setIsPublic(false);
     setCourtDateTime('');
     setCourtDateTimeErrorMessage(null);
     setLocation(DEFAULT_LOCATION_VALUE);
     setOtherLocation(DEFAULT_OTHER_LOCATION_VALUE);
+    setDuration(DEFAULT_DURATION_TIME);
     setSubmitErrorMessage('');
     setIsCreatingCourt(false);
   };
@@ -63,6 +72,7 @@ const AddCourtButton = ({
       isPublic,
       location:
         location === DEFAULT_OTHER_LOCATION_VALUE ? otherLocation : location,
+      duration,
     };
 
     try {
@@ -256,6 +266,23 @@ const AddCourtButton = ({
                   onChange={handleDateChange}
                 />
               </label>
+              {courtDateTimeErrorMessage != null && (
+                <div className='text-red-400'>{courtDateTimeErrorMessage}</div>
+              )}
+            </div>
+            <div className='form-control my-4 w-full'>
+              <div className='label-text text-base font-bold'>How Long?</div>
+              <select
+                className='select select-primary w-full my-2'
+                value={duration}
+                onChange={handleDurationChange}
+              >
+                <option value={30}>30 mins</option>
+                <option value={60}>60 mins</option>
+                <option value={90}>90 mins</option>
+                <option value={120}>120 mins</option>
+              </select>
+
               {courtDateTimeErrorMessage != null && (
                 <div className='text-red-400'>{courtDateTimeErrorMessage}</div>
               )}

@@ -7,7 +7,7 @@ import { Court } from '@utils/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { formatDate } from '../utils/util';
+import { formatDate, formatHour } from '../utils/util';
 
 function CourtItem({
   courtId,
@@ -106,7 +106,9 @@ function CourtItem({
             );
           })}
         </div>
-        <p>{formatDate(court.date)}</p>
+        <p>
+          {formatDate(court.date)} - {formatHour(court.date, court.duration)}
+        </p>
         {size === 'large' && <ShareToWhatsappButton />}
         <div className='card-actions justify-end'>
           <JoinLeaveCourt

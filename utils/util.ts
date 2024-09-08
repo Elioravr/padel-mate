@@ -26,6 +26,21 @@ export function formatShortDate(dateAsString: Date): string {
   return new Intl.DateTimeFormat('en-IL', options).format(date);
 }
 
+export function formatHour(dateAsString: Date, duration: number): string {
+  // Create a new Date object to prevent modifying the original one
+  const endTime = new Date(dateAsString);
+
+  // Add the duration (in minutes) to the date
+  endTime.setMinutes(endTime.getMinutes() + duration);
+
+  // Extract hours and minutes
+  const hours = endTime.getHours().toString().padStart(2, '0');
+  const minutes = endTime.getMinutes().toString().padStart(2, '0');
+
+  // Return formatted string "hh:mm"
+  return `${hours}:${minutes}`;
+}
+
 export function getBaseURL() {
   const apiUrl =
     process.env.NODE_ENV === 'production'

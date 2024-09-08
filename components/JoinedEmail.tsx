@@ -1,6 +1,6 @@
 import { Button, Heading, Img, Section, Text } from '@react-email/components';
 import { Court } from '@utils/types';
-import { formatDate, getBaseURL } from '@utils/util';
+import { formatDate, formatHour, getBaseURL } from '@utils/util';
 
 const JoinedEmail = async ({ courtId }: { courtId: string }) => {
   const response = await fetch(`${getBaseURL()}/api/courts/${courtId}`, {
@@ -50,7 +50,7 @@ const JoinedEmail = async ({ courtId }: { courtId: string }) => {
             color: '#a4a1a1',
           }}
         >
-          {formatDate(court.date)}
+          {formatDate(court.date)} - {formatHour(court.date, court.duration)}
         </Heading>
         <Section style={{ marginTop: 5, marginBottom: 5 }}>
           <Text

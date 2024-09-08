@@ -40,11 +40,10 @@ export async function POST(req: NextRequest) {
   try {
     // Parse the request body
     const {
-      data: { date, isPublic, location },
+      data: { date, isPublic, location, duration },
     } = await req.json(); // Extract the fields you need from req.json()
 
     const dateObj = new Date(date);
-    console.log('userId', userId);
 
     // Create a new player in the database
     const newCourt = await db.court.create({
@@ -53,6 +52,7 @@ export async function POST(req: NextRequest) {
         location,
         date: dateObj.toISOString(),
         ownerId: userId,
+        duration,
       },
     });
 
