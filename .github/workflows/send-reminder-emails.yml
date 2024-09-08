@@ -1,0 +1,24 @@
+name: Send Reminder Emails
+
+on:
+  schedule:
+    - cron: '0 * * * *' # This cron expression means "at minute 0 of every hour"
+  workflow_dispatch: # This allows you to trigger the workflow manually as well
+
+jobs:
+  send-emails:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Send reminder emails
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          curl -X GET https://padelmate.elioravr.com/api/send-reminder-emails
