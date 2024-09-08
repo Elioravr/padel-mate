@@ -1,7 +1,7 @@
 import ReminderEmail from '@components/ReminderEmail';
 import { PrismaClient } from '@prisma/client';
 import { createCalendarEvent } from '@utils/util';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
@@ -9,9 +9,9 @@ const db = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET() {
-  const now = moment();
-  const in23Hours = now.add(23, 'hours').toDate();
-  const in24Hours = now.add(24, 'hour').toDate(); // Adding 1 hour to get the 24-hour range
+  const now = moment().tz('Asia/Jerusalem'); // Set the timezone to 'Asia/Jerusalem'
+  const in23Hours = now.clone().add(23, 'hours').toDate(); // Add 23 hours from now in the timezone
+  const in24Hours = now.clone().add(24, 'hours').toDate(); // Add 24 hours from now in the timezone
 
   try {
     // Fetch courts happening between the next 23 and 24 hours
