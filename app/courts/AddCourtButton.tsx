@@ -180,7 +180,7 @@ const AddCourtButton = ({
         }
         className={fullSizeButton ? 'btn btn-active btn-primary w-full' : ''}
       >
-        {fullSizeButton ? 'Add new Court' : icon}
+        {fullSizeButton ? 'Add New Court' : icon}
       </button>
       <dialog
         id='add_new_court_modal'
