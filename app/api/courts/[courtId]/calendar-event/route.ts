@@ -1,6 +1,6 @@
 // app/api/court/[id]/calendar/route.ts
 import { PrismaClient } from '@prisma/client';
-import { createEvent } from 'ics';
+import { createEvent, EventAttributes } from 'ics';
 import { NextResponse } from 'next/server';
 
 const db = new PrismaClient();
@@ -31,27 +31,28 @@ export async function GET(
 
   const description = `You have a Padel court booked by ${court.owner.firstName} ${court.owner.lastName}. The event will be held at ${court.location}.`;
 
-  // Create the calendar event
-  const event = {
-    start: [
-      startDate.getUTCFullYear(),
-      startDate.getUTCMonth() + 1, // Months are 0-indexed
-      startDate.getUTCDate(),
-      startDate.getUTCHours(),
-      startDate.getUTCMinutes(),
-    ],
-    end: [
-      endDate.getUTCFullYear(),
-      endDate.getUTCMonth() + 1,
-      endDate.getUTCDate(),
-      endDate.getUTCHours(),
-      endDate.getUTCMinutes(),
-    ],
+  // Ensure the start time has exactly 5 elements: [year, month, day, hour, minute]
+  const start: [number, number, number, number, number] = [
+    startDate.getUTCFullYear(),
+    startDate.getUTCMonth() + 1, // Months are 0-indexed, so we add 1
+    startDate.getUTCDate(),
+    startDate.getUTCHours(),
+    startDate.getUTCMinutes(),
+  ];
+
+  // Create the calendar event object
+  const event: EventAttributes = {
+    start, // Matches the [number, number, number, number, number] format
+    duration: { minutes: court.duration }, // Use duration instead of end time
     title: `Padel! 🎾 (${court.owner.firstName} ${court.owner.lastName}'s court)`,
     description,
     location: court.location,
     status: 'CONFIRMED',
     busyStatus: 'BUSY',
+    organizer: {
+      name: `${court.owner.firstName} ${court.owner.lastName}`,
+      email: court.owner.email || '',
+    }, // Organizer details
   };
 
   // Generate the .ics file
