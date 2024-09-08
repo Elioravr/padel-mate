@@ -1,5 +1,3 @@
-import PostHogPageView from '@app/PostHogPageView';
-import { PHProvider } from '@app/providers';
 import { ClerkProvider, SignedOut } from '@clerk/nextjs';
 import Navbar from '@components/Navbar';
 import SignInModal from '@components/SignInModal';
@@ -79,15 +77,15 @@ export default function RootLayout({
           <meta name='theme-color' content='#1d232a' />
         </head>
         <body className={inter.className}>
-          <PHProvider>
-            <Navbar />
-            <div className='pt-16'></div>
-            <PostHogPageView />
-            {children}
-            <SignedOut>
-              <SignInModal />
-            </SignedOut>
-          </PHProvider>
+          {/* <PHProvider> */}
+          <Navbar />
+          <div className='pt-16'></div>
+          {/* <PostHogPageView /> */}
+          {children}
+          <SignedOut>
+            <SignInModal />
+          </SignedOut>
+          {/* </PHProvider> */}
         </body>
       </html>
     </ClerkProvider>
