@@ -2,14 +2,19 @@ name: Send Reminder Emails
 
 on:
   schedule:
-    - cron: '0 * * * *' # This cron expression means "at minute 0 of every hour"
-  workflow_dispatch: # This allows you to trigger the workflow manually as well
+    - cron: '0 * * * *' # Run every hour
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
 
 jobs:
   send-emails:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -21,4 +26,4 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
-          curl -X GET https://padelmate.elioravr.com/api/send-reminder-emails
+          curl -X GET https://yourdomain.com/api/send-reminder-emails
