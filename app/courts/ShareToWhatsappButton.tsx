@@ -18,13 +18,14 @@ const ShareToWhatsappButton = () => {
     shareText
   )}%20${encodeURIComponent(shareUrl)}`;
   return (
-    <Link href={whatsappUrl}>
+    <Link href={whatsappUrl} className='btn btn-outline btn-success'>
       <Image
-        src='/images/whatsapp-share-button-icon.svg'
+        src='/images/whatsapp-share-button-icon-2.png'
         alt='share-to-whatsapp'
-        width={100}
-        height={30}
+        width={20}
+        height={20}
       />
+      Share to WhatsApp
     </Link>
   );
 };

@@ -1,12 +1,12 @@
 'use client';
 
+import AddToCalendarButton from '@app/courts/AddToCalendarButton';
 import JoinLeaveCourt from '@app/courts/JoinLeaveCourtButton';
-import ShareToWhatsappButton from '@app/courts/ShareToWhatsappButton';
 import { useAuth } from '@clerk/nextjs';
 import { Court } from '@utils/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { formatDate, formatHour } from '../utils/util';
 
 function CourtItem({
@@ -60,6 +60,14 @@ function CourtItem({
     fetchCourtData();
   }, []);
 
+  const isUserIncludedInPlayers = useMemo(() => {
+    if (court == null) {
+      return false;
+    }
+
+    return court.players.some((player) => player.id === userId);
+  }, [court, userId]);
+
   if (loading) {
     return size === 'large' ? (
       <div className='flex w-96 flex-col gap-4'>
@@ -109,19 +117,23 @@ function CourtItem({
         <p>
           {formatDate(court.date)} - {formatHour(court.date, court.duration)}
         </p>
-        {size === 'large' && <ShareToWhatsappButton />}
-        <div className='card-actions justify-end'>
-          <JoinLeaveCourt
-            courtId={courtId}
-            isCourtFullyBooked={court.players.length === 4}
-            refetchCourtData={async () => {
-              await refetchCourtData();
-              await onCourtUpdate?.();
-            }}
-            isCurrentUserInThisGroup={court.players.some(
-              (player) => player.id === userId
-            )}
-          />
+        <div className='card-actions flex justify-end'>
+          {size !== 'large' && (
+            <>
+              {isUserIncludedInPlayers && (
+                <AddToCalendarButton courtId={courtId} text='Calendar' />
+              )}
+              <JoinLeaveCourt
+                courtId={courtId}
+                isCourtFullyBooked={court.players.length === 4}
+                refetchCourtData={async () => {
+                  await refetchCourtData();
+                  await onCourtUpdate?.();
+                }}
+                isCurrentUserInThisGroup={isUserIncludedInPlayers}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

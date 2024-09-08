@@ -2,12 +2,18 @@
 
 import AddPlayerButton from '@app/courts/AddPlayerButton';
 import DeleteCourtButton from '@app/courts/DeleteCourtButton';
+import JoinLeaveCourt from '@app/courts/JoinLeaveCourtButton';
+import ShareToWhatsappButton from '@app/courts/ShareToWhatsappButton';
+import { useAuth } from '@clerk/nextjs';
 import CourtItem from '@components/CourtItem';
 import PlayersCarousel from '@components/PlayersCarousel';
 import { Court } from '@utils/types';
 import { getBaseURL } from '@utils/util';
 import { useEffect, useState } from 'react';
+import AddToCalendarButton from '../AddToCalendarButton';
+
 const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
+  const { userId } = useAuth();
   const [court, setCourt] = useState<Court | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true); // This page is starting by loading
 
@@ -52,6 +58,21 @@ const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
           size='large'
           onCourtUpdate={handleCourtChange}
         />
+      </div>
+
+      <div className='flex flex-col px-2 gap-4'>
+        <JoinLeaveCourt
+          courtId={courtId}
+          isCourtFullyBooked={court.players.length === 4}
+          refetchCourtData={async () => {
+            await handleCourtChange();
+          }}
+          isCurrentUserInThisGroup={court.players.some(
+            (player) => player.id === userId
+          )}
+        />
+        <AddToCalendarButton courtId={courtId} />
+        <ShareToWhatsappButton />
       </div>
       <AddPlayerButton
         courtId={court.id}
