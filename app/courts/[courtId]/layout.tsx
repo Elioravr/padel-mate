@@ -24,6 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: courtName,
+    metadataBase: new URL('https://padelmate.elioravr.com/'),
+    alternates: {
+      canonical: '/',
+    },
     openGraph: {
       title: courtName,
       description: courtDescription,
