@@ -38,7 +38,7 @@ const ReminderEmail = async ({ courtId }: { courtId: string }) => {
             color: 'rgb(17,24,39)',
           }}
         >
-          {`We’re excited to remind you that you’ve been added to a Padel court session at ${court.location}!`}
+          Reminder: Upcoming Padel Court
         </Heading>
         <Heading
           as='h2'
@@ -60,8 +60,10 @@ const ReminderEmail = async ({ courtId }: { courtId: string }) => {
               color: 'rgb(107,114,128)',
             }}
           >
-            Here are the details of your upcoming match:
+            {`We’re excited to remind you that you’ve been added to a Padel court session at ${court.location}!`}
             <br />
+            <br />
+            Here are the details of your upcoming match:
             <br />
             <b>Court Location:</b> {court.location} <br />
             <b>Date:</b> {formatDate(court.date)} <br />
