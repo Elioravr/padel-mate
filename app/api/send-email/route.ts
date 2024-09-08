@@ -1,6 +1,10 @@
 import JoinedEmail from '@components/JoinedEmail';
+import { PrismaClient } from '@prisma/client';
+import { createCalendarEvent } from '@utils/util';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+
+const db = new PrismaClient();
 
 export async function GET(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -22,6 +26,28 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
+  // Fetch the court information from the database
+  const court = await db.court.findUnique({
+    where: { id: courtId },
+    include: {
+      owner: true,
+      players: {
+        include: {
+          _count: {
+            select: {
+              courts: true, // Include the count of courts where each player is a part of
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (court == null) {
+    return NextResponse.json({ error: 'Court was not found' }, { status: 500 });
+  }
+
+  const { value } = createCalendarEvent(court);
 
   try {
     const resendResponse = await resend.emails.send({
@@ -31,6 +57,13 @@ export async function GET(req: NextRequest) {
       react: await JoinedEmail({
         courtId,
       }),
+      attachments: [
+        {
+          filename: 'court-event.ics',
+          content: value || '', // Attach the .ics file content
+          contentType: 'text/calendar',
+        },
+      ],
     });
 
     console.log('resendResponse', resendResponse);

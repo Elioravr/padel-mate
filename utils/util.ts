@@ -41,6 +41,38 @@ export function formatHour(dateAsString: Date, duration: number): string {
   return `${hours}:${minutes}`;
 }
 
+import { createEvent, EventAttributes, ReturnObject } from 'ics';
+import { Court } from './types';
+
+// Utility function to generate the .ics file
+export function createCalendarEvent(court: Court): ReturnObject {
+  const startDate = new Date(court.date);
+
+  // Format the start time as an array of [year, month, day, hour, minute]
+  const start: [number, number, number, number, number] = [
+    startDate.getUTCFullYear(),
+    startDate.getUTCMonth() + 1, // Months are 0-indexed, add 1
+    startDate.getUTCDate(),
+    startDate.getUTCHours(),
+    startDate.getUTCMinutes(),
+  ];
+
+  const ownerName = `${court.owner.firstName} ${court.owner.lastName}`;
+
+  const event: EventAttributes = {
+    start,
+    duration: { minutes: court.duration },
+    title: `Padel! 🎾 (${ownerName}'s court)`,
+    description: `You have a Padel court booked by ${ownerName}. The event will be held at ${court.location}.`,
+    location: court.location,
+    status: 'CONFIRMED',
+    busyStatus: 'BUSY',
+    organizer: { name: ownerName, email: court.owner.email || '' },
+  };
+
+  return createEvent(event);
+}
+
 export function getBaseURL() {
   const apiUrl =
     process.env.NODE_ENV === 'production'
