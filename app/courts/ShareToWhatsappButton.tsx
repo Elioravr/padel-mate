@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const ShareToWhatsappButton = () => {
@@ -18,7 +17,7 @@ const ShareToWhatsappButton = () => {
     shareText
   )}%20${encodeURIComponent(shareUrl)}`;
   return (
-    <Link href={whatsappUrl} className='btn btn-outline btn-success'>
+    <a href={whatsappUrl} className='btn btn-outline btn-success'>
       <Image
         src='/images/whatsapp-share-button-icon-2.png'
         alt='share-to-whatsapp'
@@ -26,7 +25,7 @@ const ShareToWhatsappButton = () => {
         height={20}
       />
       Share to WhatsApp
-    </Link>
+    </a>
   );
 };
 
