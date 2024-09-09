@@ -9,17 +9,20 @@ const db = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET() {
-  const now = moment().tz('Asia/Jerusalem'); // Set the timezone to 'Asia/Jerusalem'
-  const in23Hours = now.clone().add(23, 'hours').toDate(); // Add 23 hours from now in the timezone
-  const in24Hours = now.clone().add(24, 'hours').toDate(); // Add 24 hours from now in the timezone
+  // Get the current date in the server's local time (likely UTC)
+  const now = moment();
+
+  // Get the start and end of "tomorrow" based on the server's local time
+  const startOfTomorrow = now.clone().add(1, 'day').startOf('day').toDate(); // Start of tomorrow
+  const endOfTomorrow = now.clone().add(1, 'day').endOf('day').toDate(); // End of tomorrow
 
   try {
-    // Fetch courts happening between the next 23 and 24 hours
+    // Fetch courts happening tomorrow
     const courts = await db.court.findMany({
       where: {
         date: {
-          gte: in23Hours, // Greater than or equal to 23 hours from now
-          lte: in24Hours, // Less than or equal to 24 hours from now
+          gte: startOfTomorrow, // Greater than or equal to the start of tomorrow
+          lte: endOfTomorrow, // Less than or equal to the end of tomorrow
         },
       },
       include: {
@@ -38,7 +41,7 @@ export async function GET() {
 
     if (courts.length === 0) {
       return NextResponse.json(
-        { message: 'No courts happening in the next 23 to 24 hours' },
+        { message: 'No courts happening tomorrow' },
         { status: 200 }
       );
     }

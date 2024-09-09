@@ -2,7 +2,7 @@ name: Send Reminder Emails
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '0 7 * * *' # Run every day at 10:00 AM Israel time (summer UTC+3)
   workflow_dispatch: # Allows manual triggering from the GitHub UI
 
 jobs:
@@ -26,4 +26,4 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
-          curl -X GET https://yourdomain.com/api/send-reminder-emails
+          curl -X GET https://padelmate.elioravr.com/api/send-reminder-emails
