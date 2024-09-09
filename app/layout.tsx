@@ -1,6 +1,7 @@
+import PadelMateClerkProvider from '@app/PadelMateClerkProvider';
 import PostHogPageView from '@app/PostHogPageView';
 import { PHProvider } from '@app/providers';
-import { ClerkProvider, SignedOut } from '@clerk/nextjs';
+import { SignedOut } from '@clerk/nextjs';
 import Navbar from '@components/Navbar';
 import SignInModal from '@components/SignInModal';
 import type { Metadata } from 'next';
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <PadelMateClerkProvider>
       <html lang='en'>
         <head>
           {/* For iOS */}
@@ -90,6 +91,6 @@ export default function RootLayout({
           </PHProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </PadelMateClerkProvider>
   );
 }
