@@ -51,50 +51,92 @@ const Page = ({ params: { courtId } }: { params: { courtId: string } }) => {
   }
 
   return (
-    <div className='flex justify-center flex-col p-3'>
-      <div className='flex justify-center'>
-        <CourtItem
+    <>
+      {/* Will be presented only on desktop */}
+      <div className='hidden md:block flex-col p-3'>
+        <div className='flex gap-4 justify-start'>
+          <CourtItem
+            courtId={court.id}
+            size='large'
+            onCourtUpdate={handleCourtChange}
+          />
+          <div className='flex flex-col w-96'>
+            <div className='flex flex-col px-2 gap-4'>
+              <JoinLeaveCourt
+                courtId={courtId}
+                isCourtFullyBooked={court.players.length === 4}
+                refetchCourtData={async () => {
+                  await handleCourtChange();
+                }}
+                isCurrentUserInThisGroup={court.players.some(
+                  (player) => player.id === userId
+                )}
+              />
+              <AddToCalendarButton courtId={courtId} />
+              <ShareToWhatsappButton />
+            </div>
+            <AddPlayerButton
+              courtId={court.id}
+              playersToExclude={court.players}
+              onCourtUpdate={handleCourtChange}
+            />
+
+            <DeleteCourtButton courtId={court.id} />
+          </div>
+        </div>
+      </div>
+
+      {/* Will be presented only on mobile */}
+      <div className='md:hidden flex justify-center flex-col p-3'>
+        <div className='flex justify-center'>
+          <CourtItem
+            courtId={court.id}
+            size='large'
+            onCourtUpdate={handleCourtChange}
+          />
+        </div>
+        <div className='flex flex-col px-2 gap-4'>
+          <JoinLeaveCourt
+            courtId={courtId}
+            isCourtFullyBooked={court.players.length === 4}
+            refetchCourtData={async () => {
+              await handleCourtChange();
+            }}
+            isCurrentUserInThisGroup={court.players.some(
+              (player) => player.id === userId
+            )}
+          />
+          <AddToCalendarButton courtId={courtId} />
+          <ShareToWhatsappButton />
+        </div>
+
+        <AddPlayerButton
           courtId={court.id}
-          size='large'
+          playersToExclude={court.players}
           onCourtUpdate={handleCourtChange}
         />
       </div>
 
-      <div className='flex flex-col px-2 gap-4'>
-        <JoinLeaveCourt
+      <div className='p-3'>
+        <PlayersCarousel
+          title='Players in this court'
+          players={court.players}
+          noPlayersPlaceholder={
+            <div className='text-base flex items-center flex-col'>
+              <div>No players have joined this court yet.</div>
+              <div>Be the first to join! 😎</div>
+            </div>
+          }
+          enableRemovePlayerButton
           courtId={courtId}
-          isCourtFullyBooked={court.players.length === 4}
-          refetchCourtData={async () => {
-            await handleCourtChange();
-          }}
-          isCurrentUserInThisGroup={court.players.some(
-            (player) => player.id === userId
-          )}
+          onCourtUpdate={handleCourtChange}
         />
-        <AddToCalendarButton courtId={courtId} />
-        <ShareToWhatsappButton />
       </div>
-      <AddPlayerButton
-        courtId={court.id}
-        playersToExclude={court.players}
-        onCourtUpdate={handleCourtChange}
-      />
-      <PlayersCarousel
-        title='Players in this court'
-        players={court.players}
-        noPlayersPlaceholder={
-          <div className='text-base flex items-center flex-col'>
-            <div>No players have joined this court yet.</div>
-            <div>Be the first to join! 😎</div>
-          </div>
-        }
-        enableRemovePlayerButton
-        courtId={courtId}
-        onCourtUpdate={handleCourtChange}
-      />
 
-      <DeleteCourtButton courtId={court.id} />
-    </div>
+      <div className='md:hidden p-3'>
+        <DeleteCourtButton courtId={court.id} />
+      </div>
+    </>
   );
 };
 

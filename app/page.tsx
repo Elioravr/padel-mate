@@ -29,7 +29,7 @@ export default async function Home() {
 
   return (
     <main>
-      <div className='p-2 flex flex-col'>
+      <div className='p-2 md:px-12 lg:px-32 flex flex-col'>
         <AddCourtButton fullSizeButton />
         <CourtsCarousel courts={upcomingCourts} title='My Upcoming Courts' />
         <CourtsCarousel courts={courts} title='Available Public Courts' />
