@@ -23,6 +23,19 @@ export default function RootLayout({
     <PadelMateClerkProvider>
       <html lang='en'>
         <head>
+          <link
+            rel='icon'
+            href='/icons/favicon-16x16.png'
+            type='image/x-icon'
+            sizes='16x16'
+          />
+          <link
+            rel='icon'
+            href='/icons/favicon-32x32.png'
+            type='image/x-icon'
+            sizes='32x32'
+          />
+
           {/* For iOS */}
           <meta name='apple-mobile-web-app-capable' content='yes' />
           <meta
