@@ -1,11 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 const DeleteCourtButton = ({ courtId }: { courtId: string }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const id = useId();
+  const dialogId = `delete_court_modal_${id}`;
 
   const deleteCourt = async () => {
     setIsDeleting(true);
@@ -24,7 +26,7 @@ const DeleteCourtButton = ({ courtId }: { courtId: string }) => {
 
       // Close the modal if it's open
       const modalCheckbox = document.getElementById(
-        'delete_court_modal'
+        dialogId
       ) as HTMLDialogElement | null;
 
       if (modalCheckbox) {
@@ -42,14 +44,12 @@ const DeleteCourtButton = ({ courtId }: { courtId: string }) => {
       <div
         className='btn btn-outline btn-error w-full mt-10 mb-2'
         onClick={() =>
-          (
-            document.getElementById('delete_court_modal') as HTMLDialogElement
-          )?.showModal()
+          (document.getElementById(dialogId) as HTMLDialogElement)?.showModal()
         }
       >
         Delete Court
       </div>
-      <dialog id='delete_court_modal' className='modal'>
+      <dialog id={dialogId} className='modal'>
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Are you sure?</h3>
           <p className='py-4'>
